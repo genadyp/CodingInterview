@@ -1,11 +1,20 @@
 '''
-Runtime: 2360 ms, faster than 5.01% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
-Memory Usage: 18.9 MB, less than 27.71% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
+Runtime: 4325 ms, faster than 5.01% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
+Memory Usage: 18.6 MB, less than 90.56% of Python3 online submissions for Kth Smallest Element in a Sorted Matrix.
 '''
 from typing import List
 
 
 class Solution:
+    def _index_of_min_value(self, values: List[int]):
+        idx = None
+        for i, v in enumerate(values):
+            if v is None:
+                continue
+            if idx is None or v < values[idx]:
+                idx = i
+        return idx
+
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         if k > len(matrix) * len(matrix):
             raise ValueError(f'k argument equels to {k}. Must be less then {len(matrix)*len(matrix)}')
@@ -13,27 +22,17 @@ class Solution:
             return matrix[0][0]
 
         count = 0 
-        dim = len(matrix)
-        row_cursors = [-1] * dim
-
+        value = None
         while count < k:
-            candidate_row = None
-            candidate_value = None
-            for i, cursor in enumerate(row_cursors):
-                if i == 0: 
-                    if cursor < dim - 1:
-                        candidate_value = matrix[0][cursor + 1]
-                        candidate_row = 0
-                elif cursor < row_cursors[i - 1]:
-                    value = matrix[i][cursor + 1]
-                    if candidate_value is None or value < candidate_value:
-                        candidate_value = value
-                        candidate_row = i
-            row_cursors[candidate_row] += 1
-            #print(candidate_value)
+            idx = self._index_of_min_value([r[0] for r in matrix])
+            value = matrix[idx].pop(0)
+            if not matrix[idx]:
+                matrix[idx].append(None)
+
             count += 1
-            if count == k:
-                return candidate_value   
+
+        return value
+            
 
 if __name__ == '__main__':
     testcases = [
@@ -66,4 +65,4 @@ if __name__ == '__main__':
         assert result == t['expected'], f'Got {result} - Expected {t["expected"]}'
 
     print('Success')
-     
+
