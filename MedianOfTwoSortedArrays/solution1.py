@@ -1,8 +1,11 @@
+"""
+Runtime: 132 ms, faster than 12.95% of Python3 online submissions for Median of Two Sorted Arrays.
+Memory Usage: 14.8 MB, less than 5.65% of Python3 online submissions for Median of Two Sorted Arrays.
+"""
+
 from itertools import chain
 from typing import List
 
-# Runtime: 132 ms, faster than 12.95% of Python3 online submissions for Median of Two Sorted Arrays.
-# Memory Usage: 14.8 MB, less than 5.65% of Python3 online submissions for Median of Two Sorted Arrays.
 
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
