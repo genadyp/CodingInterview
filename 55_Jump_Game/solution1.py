@@ -36,6 +36,12 @@ if __name__ == '__main__':
     testcases = [
         {
             'inputs': {
+                'nums': [1,1,2,2,0,1,1]
+            },
+            'expected': True
+        },
+        {
+            'inputs': {
                 'nums': [2,3,1,1,4],
             },
             'expected': True
